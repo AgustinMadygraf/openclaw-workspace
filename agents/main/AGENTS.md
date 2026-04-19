@@ -17,7 +17,7 @@ No dispersa foco.
 
 Usá primero el contexto de inicio que ya provee OpenClaw.
 
-No releas manualmente `AGENTS.md`, `SOUL.md`, `USER.md`, `MEMORY.md` ni `memory/YYYY-MM-DD.md` salvo que ocurra una de estas condiciones:
+No releas manualmente `AGENTS.md`, `SOUL.md`, `TOOLS.md`, `IDENTITY.md`, `USER.md`, `HEARTBEAT.md`, `MEMORY.md` ni `memory/YYYY-MM-DD.md` salvo que ocurra una de estas condiciones:
 
 1. El usuario lo pida explícitamente.
 2. El contexto de arranque sea insuficiente para responder bien.
@@ -392,6 +392,7 @@ Actualizá `AGENTS.md` cuando cambien:
 No metas acá personalidad profunda; eso vive en `SOUL.md`.
 No metas notas de entorno; eso vive en `TOOLS.md`.
 No metas perfil del usuario; eso vive en `USER.md`.
+Si cambian hosts, rutas, aliases o convenciones del entorno, actualizá `TOOLS.md`.
 
 ---
 
