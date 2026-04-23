@@ -38,33 +38,30 @@ git branch -M main
 git push -u origin main
 ```
 
-### 4. Crear el token de acceso
+### 4. Crear el token de acceso (Classic)
 
-1. En la cuenta nueva, andá a **Settings → Developer settings → Personal access tokens → Fine-grained tokens**.
-2. Clic en **Generate new token**.
+Decidiste usar **tokens classic** (más simples, un solo scope amplio).
+
+1. En la cuenta nueva, andá a **Settings → Developer settings → Personal access tokens → Tokens (classic)**.
+2. Clic en **Generate new token** → **Generate new token (classic)**.
 3. Configuración:
-   - **Token name**: `openclaw-mcp`
-   - **Expiration**: 90 días (o el máximo que permita; podés regenerarlo después).
-   - **Repository access**: **Only select repositories**
-   - Seleccioná el/los repos de DataMaq y/o el repo de KimiClaw.
-   - **Permissions**:
-     - Contents: **Read and write**
-     - Issues: **Read and write**
-     - Pull requests: **Read and write**
-     - Metadata: **Read** (se selecciona automáticamente)
+   - **Note**: `openclaw-mcp`
+   - **Expiration**: 90 días (o el máximo que permita).
+   - **Select scopes**: marcá **`repo`**
+     - Eso le da acceso completo a repos privados: contents, issues, pull requests, commits, branches.
 4. Clic en **Generate token** y **copiá el token** (aparece solo una vez).
 
-> **Importante**: los fine-grained tokens empiezan con `github_pat_...`, no con `ghp_...` (ese es el formato viejo "classic"). Si tu token empieza con `ghp_`, generaste un token classic. Funciona, pero es menos seguro. Recomendación: volvé atrás y usá **Fine-grained tokens**.
+> El token classic empieza con `ghp_...`. Ese es el formato que esperan las configs actuales.
 
 ### 5. Reemplazar el placeholder en la VM
 
-El token placeholder actual es `github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO`. Tenés que reemplazarlo en dos archivos:
+El token placeholder actual es `ghp_REEMPLAZAR_CON_TOKEN_DEDICADO`. Tenés que reemplazarlo en dos archivos:
 
 ```bash
-TOKEN="github_pat_11XXXX...tu_token_real..."
+TOKEN="ghp_XXXX...tu_token_real..."
 
-sed -i "s#github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO#${TOKEN}#g" ~/.kimi/mcp.json
-sed -i "s#github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO#${TOKEN}#g" ~/.openclaw/openclaw.json
+sed -i "s#ghp_REEMPLAZAR_CON_TOKEN_DEDICADO#${TOKEN}#g" ~/.kimi/mcp.json
+sed -i "s#ghp_REEMPLAZAR_CON_TOKEN_DEDICADO#${TOKEN}#g" ~/.openclaw/openclaw.json
 ```
 
 Si preferís editar manualmente:
@@ -74,7 +71,7 @@ nano ~/.kimi/mcp.json
 nano ~/.openclaw/openclaw.json
 ```
 
-Buscá `github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO` y reemplazalo por el token real.
+Buscá `ghp_REEMPLAZAR_CON_TOKEN_DEDICADO` y reemplazalo por el token real.
 
 ### 6. Reiniciar servicios
 
