@@ -54,19 +54,27 @@ git push -u origin main
      - Metadata: **Read** (se selecciona automáticamente)
 4. Clic en **Generate token** y **copiá el token** (aparece solo una vez).
 
+> **Importante**: los fine-grained tokens empiezan con `github_pat_...`, no con `ghp_...` (ese es el formato viejo "classic"). Si tu token empieza con `ghp_`, generaste un token classic. Funciona, pero es menos seguro. Recomendación: volvé atrás y usá **Fine-grained tokens**.
+
 ### 5. Reemplazar el placeholder en la VM
 
-El token placeholder actual es `ghp_REEMPLAZAR_CON_TOKEN_DEDICADO`. Tenés que reemplazarlo en dos archivos:
+El token placeholder actual es `github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO`. Tenés que reemplazarlo en dos archivos:
 
 ```bash
-# Editar ~/.kimi/mcp.json
-nano ~/.kimi/mcp.json
+TOKEN="github_pat_11XXXX...tu_token_real..."
 
-# Editar ~/.openclaw/openclaw.json
+sed -i "s#github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO#${TOKEN}#g" ~/.kimi/mcp.json
+sed -i "s#github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO#${TOKEN}#g" ~/.openclaw/openclaw.json
+```
+
+Si preferís editar manualmente:
+
+```bash
+nano ~/.kimi/mcp.json
 nano ~/.openclaw/openclaw.json
 ```
 
-Reemplazá `ghp_REEMPLAZAR_CON_TOKEN_DEDICADO` por el token real en ambos archivos.
+Buscá `github_pat_REEMPLAZAR_CON_TOKEN_DEDICADO` y reemplazalo por el token real.
 
 ### 6. Reiniciar servicios
 
