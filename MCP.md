@@ -98,3 +98,69 @@ Todas operan dentro de `/home/agustin` (no pueden salir de ese root).
 - El servidor usa transporte **stdio** (pipes), no HTTP/SSE.
 - Corre como proceso hijo del cliente (Kimi CLI u OpenClaw gateway) cuando se invoca una herramienta.
 - No requiere servicio systemd propio.
+
+## Servidor MCP `github`
+
+Gestión de repositorios GitHub para el agente y Kimi Code CLI.
+
+- **Paquete**: `@modelcontextprotocol/server-github`
+- **Entry point**: `/home/agustin/.nvm/versions/node/v24.15.0/lib/node_modules/@modelcontextprotocol/server-github/dist/index.js`
+- **Ejecución**: `node <entry-point>` (usa transporte stdio)
+- **Requiere**: `GITHUB_PERSONAL_ACCESS_TOKEN` (fine-grained token de cuenta dedicada)
+- **Requisito previo**: ver `GITHUB_SETUP.md` para crear la cuenta y el token
+
+### Configuración de Kimi Code CLI
+
+`~/.kimi/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "/home/agustin/.nvm/versions/node/v24.15.0/bin/mcp-server-filesystem",
+      "args": ["/home/agustin"]
+    },
+    "github": {
+      "command": "node",
+      "args": ["/home/agustin/.nvm/versions/node/v24.15.0/lib/node_modules/@modelcontextprotocol/server-github/dist/index.js"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_REEMPLAZAR_CON_TOKEN_DEDICADO"
+      }
+    }
+  }
+}
+```
+
+### Configuración de OpenClaw/KimiClaw
+
+`~/.openclaw/openclaw.json` (sección `mcp.servers`):
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "filesystem": {
+        "command": "/home/agustin/.nvm/versions/node/v24.15.0/bin/mcp-server-filesystem",
+        "args": ["/home/agustin"]
+      },
+      "github": {
+        "command": "node",
+        "args": ["/home/agustin/.nvm/versions/node/v24.15.0/lib/node_modules/@modelcontextprotocol/server-github/dist/index.js"],
+        "env": {
+          "GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_REEMPLAZAR_CON_TOKEN_DEDICADO"
+        }
+      }
+    }
+  }
+}
+```
+
+### Herramientas expuestas
+
+- `create_issue`, `update_issue`, `list_issues`
+- `create_pull_request`, `update_pull_request`, `list_pull_requests`
+- `get_file_contents`, `create_or_update_file`
+- `list_commits`, `get_commit`
+- `search_code`, `search_issues`, `search_repositories`
+- `create_branch`, `list_branches`
+- `fork_repository`, `create_repository`
