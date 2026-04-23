@@ -17,10 +17,28 @@ El servidor MCP `github` ya está instalado y configurado en Kimi CLI y OpenClaw
 2. Elegí el email:
    - **Opción A (recomendada)**: `openclaw@datamaq.com.ar` — más específico, desvinculado del contacto comercial general de DataMaq. Ideal si ya tenés el dominio `datamaq.com.ar` configurado para crear aliases.
    - **Opción B (rápida)**: `contacto.datamaq@gmail.com` — si querés evitar crear un nuevo email ahora y usás el que ya existe.
-3. Elegí un username tipo `datamaq-automation` o `openclaw-bot`.
+3. Elegí el username: **`datamaq-automation`** (parece disponible). Es específico, deja claro que es la cuenta de bots/automatización, no la humana de la empresa.
 4. Completá el CAPTCHA y verificá el email.
 
-### 2. Crear el token de acceso
+### 2. Crear el repositorio
+
+1. Desde la cuenta nueva, creá un repo nuevo.
+2. **Nombre recomendado**: `kimiclaw` — es el nombre de tu proyecto, corto y memorable. Si crecés, podés crear `kimiclaw-plugins`, `kimiclaw-docs`, etc.
+3. Dejalo **público** o **privado** según prefieras (privado es más seguro mientras experimentás).
+4. No inicialices con README ni .gitignore; el repo local ya existe.
+
+La URL va a quedar: `https://github.com/datamaq-automation/kimiclaw`
+
+### 3. Conectar el repo local al remoto
+
+```bash
+cd ~/openclaw-workspace
+git remote add origin https://github.com/datamaq-automation/kimiclaw.git
+git branch -M main
+git push -u origin main
+```
+
+### 4. Crear el token de acceso
 
 1. En la cuenta nueva, andá a **Settings → Developer settings → Personal access tokens → Fine-grained tokens**.
 2. Clic en **Generate new token**.
@@ -36,7 +54,7 @@ El servidor MCP `github` ya está instalado y configurado en Kimi CLI y OpenClaw
      - Metadata: **Read** (se selecciona automáticamente)
 4. Clic en **Generate token** y **copiá el token** (aparece solo una vez).
 
-### 3. Reemplazar el placeholder en la VM
+### 5. Reemplazar el placeholder en la VM
 
 El token placeholder actual es `ghp_REEMPLAZAR_CON_TOKEN_DEDICADO`. Tenés que reemplazarlo en dos archivos:
 
@@ -50,7 +68,7 @@ nano ~/.openclaw/openclaw.json
 
 Reemplazá `ghp_REEMPLAZAR_CON_TOKEN_DEDICADO` por el token real en ambos archivos.
 
-### 4. Reiniciar servicios
+### 6. Reiniciar servicios
 
 ```bash
 systemctl --user restart openclaw-gateway.service
